@@ -1,12 +1,13 @@
 import React from 'react';
-import Login from './pages/login';
 import CreateGlobal from './global'
+
+import Routes from './routes';
 
 function App() {
   return (
     <div className="App">
      <CreateGlobal />
-     <Login />
+     <Routes />
     </div>
   );
 }
