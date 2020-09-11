@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         const user = await this.userRepository.findOne({ usuario });
     
         if (!user) {
-          throw new UnauthorizedException("Assinatura de token!");
+          throw new UnauthorizedException("Assinatura de token invalida!");
         }
     
         return user;
