@@ -20,7 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" component={isAuthenticated() ? Home : Login} />
             <PrivateRoute exact path="/home" component={Home} />
         </Switch>
     </BrowserRouter>

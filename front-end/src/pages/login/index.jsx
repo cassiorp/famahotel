@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Form } from './style';
 import Api from '../../services/api';
-import { login } from '../../services/auth'
+
 import { Redirect } from "react-router-dom";
 
 export default class Login extends Component {
@@ -12,6 +12,7 @@ export default class Login extends Component {
             username: "",
             password: "",
             access: false,
+            erro: "",
         };
     }
 
@@ -28,41 +29,24 @@ export default class Login extends Component {
     };
 
 
-    onClick = async () => {
+    login = async () => {
         const { username, password } = this.state;
 
-        const response = await this.api.postLogin(username, password);
-        // localStorage('acessToken', response.data.accessToken)
-        localStorage.setItem('token', response.data.accessToken);
-        
-        alert(response.status)
+        await this.api.postLogin(username, password)
+            .then(
+                (response) => {
+                    this.setState({ access: true });
+                    localStorage.setItem('token', response.data.accessToken);
+                    alert(response.status)
+                }
 
-        // await this.api.postLogin(username, password).then(response => {
-        //     if (response.status === 201) {
-                
-        //         const accessToken = response.data.accessToken;
-
-        //         localStorage.setItem('token',accessToken);
-
-        //         this.setState({ access: true });
-
-        //         alert("Token " + localStorage.getItem('token'))
-        //     }
-            
-        // });
+            ).catch(() => {
+                this.setState({erro: "Usuario ou senha invalidos"})
+                alert(this.state.erro)
+            })
     };
 
-    mostraLogin = () => {
-        const login = {
-            usuario: this.state.username,
-            senha: this.state.password
-        }
-        alert(login.usuario + login.senha)
-    }
-
-
-
-
+    
     render() {
         const { access } = this.state;
         if (access) return <Redirect to={{ pathname: "/home" }} />;
@@ -83,7 +67,7 @@ export default class Login extends Component {
                             placeholder="senha"
                             onBlur={this.handleChange}
                         />
-                        <button type="submit" onClick={this.onClick}>Entrar</button>
+                        <button type="submit" onClick={this.login}>Entrar</button>
                     </Form>
                 </Container>
             );

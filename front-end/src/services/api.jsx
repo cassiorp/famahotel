@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getToken } from "./auth";
+import {isAuthenticated} from '../services/auth';
 
 export default class Api {
 
