@@ -1,75 +1,77 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Container, Form } from './style';
-import Api from '../../services/api';
+import { useHistory } from 'react-router-dom'
+import { postLogin } from '../../services/api';
 
-import { Redirect } from "react-router-dom";
+import Alert from '../../components/alert/Alert';
 
-export default class Login extends Component {
-    constructor() {
-        super();
-        this.api = new Api();
-        this.state = {
-            username: "",
-            password: "",
-            access: false,
-            erro: "",
-        };
-    }
 
-    handleChange = event => {
+function Login() {
+    const [username, setUsername] = useState(0);
+    const [password, setPassword] = useState(0);
+    const [error, setError] = useState(0);
+    const [cor, setCor] = useState(0);
+    const [texto, setTexto] = useState("");
+
+
+    const history = useHistory();
+
+    const handleChange = event => {
         if (event.target.name === "password") {
-            this.setState({ password: event.target.value });
-
+            setPassword(event.target.value);
         }
         if (event.target.name === "username") {
-            this.setState({ username: event.target.value });
-
+            setUsername(event.target.value);
         }
         console.log(event.target.value)
     };
 
 
-    login = async () => {
-        const { username, password } = this.state;
+    async function login(e) {
+        e.preventDefault();
 
-        await this.api.postLogin(username, password)
-            .then(
-                (response) => {
-                    this.setState({ access: true });
-                    localStorage.setItem('token', response.data.accessToken);
-                    alert(response.status)
-                }
+        try {
+            const response = await postLogin(username, password);
+            localStorage.setItem('token', response.data.accessToken);
+            history.push('/home');
 
-            ).catch(() => {
-                this.setState({erro: "Usuario ou senha invalidos"})
-                alert(this.state.erro)
-            })
+        } catch (error) {
+            setTexto("Usuario ou senha incorretos!!");
+            setCor("#fc6963");
+
+            setTimeout(() => {
+                setTexto("");
+                setCor("");
+            }, 3000);
+        }
+
     };
 
-    
-    render() {
-        const { access } = this.state;
-        if (access) return <Redirect to={{ pathname: "/home" }} />;
-        else
-            return (
-                <Container>
-                    <Form >
-                        <p>Bem vindo!</p>
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="usuário"
-                            onBlur={this.handleChange}
-                        />
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="senha"
-                            onBlur={this.handleChange}
-                        />
-                        <button type="submit" onClick={this.login}>Entrar</button>
-                    </Form>
-                </Container>
-            );
-    }
+    return (
+        <Container>
+            <Alert cor={cor} texto={texto} />
+            <Form >
+                <p>Bem vindo!</p>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="usuário"
+                    onBlur={handleChange}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="senha"
+                    onBlur={handleChange}
+                />
+                <button type="submit" onClick={login}>Entrar</button>
+            </Form>
+        </Container>
+    );
+
+
+
+
 }
+
+export default Login;

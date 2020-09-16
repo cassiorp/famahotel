@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { P, Div } from './style';
+import { Div } from './style';
 
-export default class Alerta extends Component {
+export default class Alert extends Component {
 	render() {
 		const { cor, texto} = this.props
 		return (
 			<React.Fragment>
-				<Div color={cor} >
+				<Div color={cor}>
 					<p>{texto}</p>
 				</Div>
 			</React.Fragment>
