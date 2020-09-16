@@ -1,12 +1,12 @@
 import { Repository, EntityRepository } from "typeorm";
-import { Usuarios } from "./usuarios.entity";
+import { Usuarios } from "./users.entity";
 import { AuthCredentialsDto } from "./dto/auth-credentials.dto";
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { UsuarioDto } from "./dto/usuarios.dto";
 
 
 @EntityRepository(Usuarios)
-export class UsuariosRepository extends Repository<Usuarios> {
+export class UsersRepository extends Repository<Usuarios> {
 
     async criaUsuario(usuarioDto: UsuarioDto): Promise<void> {
         const { nome, usuario, senha } = usuarioDto;
