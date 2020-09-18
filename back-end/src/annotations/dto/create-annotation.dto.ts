@@ -1,4 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsIn } from 'class-validator';
+import { AnnotationPolarity } from '../annotation-polarity.enum';
 
 export class CreateAnnotationDto {
     
@@ -15,7 +16,8 @@ export class CreateAnnotationDto {
     subsubfeature: string;
 
     @IsNotEmpty()
-    polarity: string;
+    @IsIn([AnnotationPolarity.positiva, AnnotationPolarity.neutra, AnnotationPolarity.negativa])
+    polarity: AnnotationPolarity;
 
     @IsNotEmpty()
     exim: string;

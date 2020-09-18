@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Usuarios } from 'src/auth/users.entity';
@@ -14,6 +14,7 @@ export class AnnotationsController {
     ){}
 
     @Post()
+    @UsePipes(ValidationPipe)
     criaAnotacao(
         @Body() createAnnotation: CreateAnnotationDto,
         @GetUser() user: Usuarios

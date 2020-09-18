@@ -1,6 +1,7 @@
 import { type } from "os";
 import { Usuarios } from "src/auth/users.entity";
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { AnnotationPolarity } from "./annotation-polarity.enum";
 
 @Entity()
 export class Anotacoes extends BaseEntity {
@@ -21,7 +22,7 @@ export class Anotacoes extends BaseEntity {
   subsubfeature: string;
 
   @Column()
-  polarity: string;
+  polarity: AnnotationPolarity;
 
   @Column()
   exim: string;
@@ -30,9 +31,10 @@ export class Anotacoes extends BaseEntity {
   term: string;
 
   @ManyToOne(type => Usuarios, usuario => usuario.anotacoes, { eager: false })
+  @JoinColumn({name: "id_usuario"})
   usuario: Usuarios;
 
   @Column()
-  usuarioId: number;
+  id_usuario: number;
 
 }

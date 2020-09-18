@@ -9,6 +9,7 @@ import { CreateAnnotationDto } from "./dto/create-annotation.dto";
 
 @EntityRepository(Anotacoes)
 export class AnnotationsRepository extends Repository<Anotacoes> {
+   
     async criaAnotacao(
         createAnotacaoDto: CreateAnnotationDto,
         user: Usuarios
@@ -37,28 +38,5 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
         anotacao.term = term;
         return anotacao;
     }
-
-
-    // @IsNotEmpty()
-    // texto: string;
-
-    // @IsNotEmpty()
-    // feature: string;
-
-    // @IsNotEmpty()
-    // subfeature: string;
-
-    // @IsNotEmpty()
-    // subsubfeature: string;
-
-    // @IsNotEmpty()
-    // polarity: string;
-
-    // @IsNotEmpty()
-    // exim: string;
-
-    // @IsNotEmpty()
-    // term: string;
-
 
 }
