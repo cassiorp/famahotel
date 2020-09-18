@@ -9,8 +9,8 @@ import { UsuarioDto } from "./dto/usuarios.dto";
 export class UsersRepository extends Repository<Usuarios> {
 
     async criaUsuario(usuarioDto: UsuarioDto): Promise<void> {
+        
         const { nome, usuario, senha } = usuarioDto;
-
 
         const user = new Usuarios();
         user.nome = nome;
@@ -28,8 +28,5 @@ export class UsersRepository extends Repository<Usuarios> {
         }
 
     }
-
-
-    
 
 }

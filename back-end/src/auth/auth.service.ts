@@ -21,6 +21,7 @@ export class AuthService {
 
 
     async login(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string}>{
+        
         const usuario = await this.validaUsuario(authCredentialsDto);
         
         if(!usuario){
@@ -31,10 +32,12 @@ export class AuthService {
         const accessToken = await this.jwtService.sign(payload);
      
         return { accessToken };
+
      }
 
 
     private async validaUsuario(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+        
         const { usuario, senha } = authCredentialsDto;
         const user = await this.usuariosRepository.findOne({ usuario });
 

@@ -23,10 +23,4 @@ export class AuthController {
         return this.authService.login(authCredentialsDto);
     }
 
-    @Post('/teste')
-    @UseGuards(AuthGuard())
-    teste(@GetUser() user: Usuarios){
-        console.log(user);
-    }
-
 }

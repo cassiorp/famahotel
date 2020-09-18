@@ -6,8 +6,6 @@ import { Repository, EntityRepository } from "typeorm";
 import { Anotacoes } from "./annotations.entity";
 import { CreateAnnotationDto } from "./dto/create-annotation.dto";
 
-
-
 @EntityRepository(Anotacoes)
 export class AnnotationsRepository extends Repository<Anotacoes> {
 
@@ -31,10 +29,12 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
         await anotacao.save();
         delete anotacao.usuario;
         return anotacao;
+
     }
 
 
     private converteCreateDtoParaEntidade(createAnnotationDto: CreateAnnotationDto): Anotacoes {
+        
         const { texto, feature, subfeature, subsubfeature, polarity, exim, term } = createAnnotationDto;
 
         const anotacao = new Anotacoes();
@@ -46,8 +46,7 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
         anotacao.exim = exim;
         anotacao.term = term;
         return anotacao;
+    
     }
-
-
 
 }

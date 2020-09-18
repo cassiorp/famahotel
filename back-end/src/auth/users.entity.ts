@@ -23,4 +23,5 @@ export class Usuarios extends BaseEntity {
     async validatePassword(password: string): Promise<boolean>{
         return password === this.senha;
     }
+    
 }

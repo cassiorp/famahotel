@@ -14,4 +14,5 @@ export class UsuarioDto{
     @MinLength(4)
     @MaxLength(20)
     senha: string;
+    
 }

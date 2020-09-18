@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Usuarios } from 'src/auth/users.entity';
 import { Anotacoes } from './annotations.entity';
 import { AnnotationsRepository } from './annotations.repository';
-
 import { CreateAnnotationDto } from './dto/create-annotation.dto';
 import { UpdateAnnotationDto } from './dto/update-annotation.dto';
 
@@ -14,7 +13,6 @@ export class AnnotationsService {
         private annotationRepository: AnnotationsRepository,
 
     ) { }
-
 
     async pegaAnotacoesUsuario(user: Usuarios): Promise<Anotacoes[]> {
         return this.annotationRepository.pegaAnotacoesUsuario(user);
@@ -31,13 +29,13 @@ export class AnnotationsService {
         id: number,
         user: Usuarios
     ): Promise<Anotacoes> {
-
+        
         const found = await this.annotationRepository.findOne({ where: { id, id_usuario: user.id } });
-
         if (!found) {
             throw new NotFoundException(`Annotation with ID: ${id} not found`);
         }
         return found;
+
     }
 
 
@@ -54,12 +52,12 @@ export class AnnotationsService {
         anotacao.save();
 
         return anotacao;
+
     }
 
-
     private converteUpdateDtoParaEntidade(updateAnnotationDto: UpdateAnnotationDto, anotacao: Anotacoes): Anotacoes {
+        
         const { feature, subfeature, subsubfeature, polarity, exim, term } = updateAnnotationDto;
-
 
         anotacao.feature = feature;
         anotacao.subfeature = subfeature;
@@ -68,5 +66,6 @@ export class AnnotationsService {
         anotacao.exim = exim;
         anotacao.term = term;
         return anotacao;
+
     }
 }

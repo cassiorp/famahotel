@@ -14,7 +14,6 @@ export class AnnotationsController {
         private annotationService: AnnotationsService,
     ) { }
 
-
     @Get()
     pegaAnotacoesUsuario(@GetUser() user: Usuarios): Promise<Anotacoes[]>{
         return this.annotationService.pegaAnotacoesUsuario(user);
