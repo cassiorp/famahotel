@@ -7,26 +7,35 @@ import { Anotacoes } from "./annotations.entity";
 import { CreateAnnotationDto } from "./dto/create-annotation.dto";
 
 
+
 @EntityRepository(Anotacoes)
 export class AnnotationsRepository extends Repository<Anotacoes> {
-   
+
+    async pegaAnotacoesUsuario(user: Usuarios): Promise<Anotacoes[]> {
+
+        const query = this.createQueryBuilder('anotacoes');
+        
+        query.where('anotacoes.id_usuario = :id_usuario', {id_usuario: user.id} );
+
+        return await query.getMany();
+
+    }
+
     async criaAnotacao(
         createAnotacaoDto: CreateAnnotationDto,
         user: Usuarios
     ): Promise<Anotacoes> {
 
-        const anotacao = this.converteDtoParaEntidade(createAnotacaoDto);
+        const anotacao = this.converteCreateDtoParaEntidade(createAnotacaoDto);
         anotacao.usuario = user;
-
         await anotacao.save();
-
         delete anotacao.usuario;
-
         return anotacao;
     }
 
-    private converteDtoParaEntidade(createAnotacaoDto: CreateAnnotationDto): Anotacoes {
-        const { texto, feature, subfeature, subsubfeature, polarity, exim, term } = createAnotacaoDto;
+
+    private converteCreateDtoParaEntidade(createAnnotationDto: CreateAnnotationDto): Anotacoes {
+        const { texto, feature, subfeature, subsubfeature, polarity, exim, term } = createAnnotationDto;
 
         const anotacao = new Anotacoes();
         anotacao.texto = texto;
@@ -38,5 +47,7 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
         anotacao.term = term;
         return anotacao;
     }
+
+
 
 }
