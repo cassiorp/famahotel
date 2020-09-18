@@ -29,7 +29,7 @@ export class AnnotationsService {
         id: number,
         user: Usuarios
     ): Promise<Anotacoes> {
-        
+
         const found = await this.annotationRepository.findOne({ where: { id, id_usuario: user.id } });
         if (!found) {
             throw new NotFoundException(`Annotation with ID: ${id} not found`);
@@ -38,13 +38,12 @@ export class AnnotationsService {
 
     }
 
-
     async editaAnotacao(
         id: number,
         user: Usuarios,
         updateAnnotationDto: UpdateAnnotationDto
-        ): Promise<Anotacoes> {
-        
+    ): Promise<Anotacoes> {
+
         let anotacao = await this.buscaPorId(id, user);
 
         anotacao = this.converteUpdateDtoParaEntidade(updateAnnotationDto, anotacao);
@@ -55,8 +54,21 @@ export class AnnotationsService {
 
     }
 
+    async deletaPorId(
+        id: number,
+        user: Usuarios
+    ): Promise<void> {
+
+        const found = await this.annotationRepository.delete({ id, id_usuario: user.id });
+
+        if (found.affected === 0) {
+            throw new NotFoundException(`Annotation with ID: ${id} not found`);
+        }
+
+    }
+
     private converteUpdateDtoParaEntidade(updateAnnotationDto: UpdateAnnotationDto, anotacao: Anotacoes): Anotacoes {
-        
+
         const { feature, subfeature, subsubfeature, polarity, exim, term } = updateAnnotationDto;
 
         anotacao.feature = feature;

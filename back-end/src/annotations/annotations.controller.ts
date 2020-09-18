@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Usuarios } from 'src/auth/users.entity';
@@ -19,6 +19,14 @@ export class AnnotationsController {
         return this.annotationService.pegaAnotacoesUsuario(user);
     }
 
+    @Get('/:id')
+    buscaPorId(
+        @Param('id', ParseIntPipe) id: number,
+        @GetUser() user: Usuarios
+    ): Promise<Anotacoes>{
+        return this.annotationService.buscaPorId(id, user);
+    }
+
     @Post()
     @UsePipes(ValidationPipe)
     criaAnotacao(
@@ -28,7 +36,7 @@ export class AnnotationsController {
         return this.annotationService.criaAnotacao(createAnnotation, user);
     }
 
-    @Put("/:id")
+    @Put('/:id')
     @UsePipes(ValidationPipe)
     editaAnotacao(
         @Param('id', ParseIntPipe) id: number,
@@ -37,4 +45,13 @@ export class AnnotationsController {
     ): Promise<Anotacoes> {
         return this.annotationService.editaAnotacao(id, user, updateAnnotationDto);
     }
+
+    @Delete('/:id')
+    deletaPorId(
+        @Param('id', ParseIntPipe) id: number,
+        @GetUser() user: Usuarios,
+    ): Promise<void>{
+        return this.annotationService.deletaPorId(id, user);
+    }
+    
 }
