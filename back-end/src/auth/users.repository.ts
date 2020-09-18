@@ -27,7 +27,6 @@ export class UsersRepository extends Repository<Usuarios> {
             }
         }
 
-
     }
 
 

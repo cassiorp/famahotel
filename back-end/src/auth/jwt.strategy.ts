@@ -18,9 +18,9 @@ export class JwtStrategy extends PassportStrategy(Strategy){
           });
     }
 
-    async valida(payload: JwtPayload) {
+    async validate(payload: JwtPayload) {
         const { usuario } = payload;
-        const user = await this.userRepository.findOne({ usuario });
+        const user = await this.usuariosRepository.findOne({ usuario });
     
         if (!user) {
           throw new UnauthorizedException("Assinatura de token invalida!");

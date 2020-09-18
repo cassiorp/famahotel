@@ -1,4 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm";
+import { Anotacoes } from "src/annotations/annotations.entity";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany } from "typeorm";
 
 @Entity()
 @Unique(['usuario'])
@@ -16,6 +17,8 @@ export class Usuarios extends BaseEntity {
     @Column()
     senha: string;
 
+    @OneToMany(type => Anotacoes, anotacoes => anotacoes.usuario, { eager: true })
+    anotacoes: Anotacoes[];
 
     async validatePassword(password: string): Promise<boolean>{
         return password === this.senha;
