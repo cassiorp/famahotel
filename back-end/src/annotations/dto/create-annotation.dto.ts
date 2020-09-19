@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsIn } from 'class-validator';
 import { AnnotationPolarity } from '../annotation-polarity.enum';
+import { Anotacoes } from '../annotations.entity';
 
 export class CreateAnnotationDto {
     

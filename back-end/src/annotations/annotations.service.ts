@@ -14,18 +14,18 @@ export class AnnotationsService {
 
     ) { }
 
-    async pegaAnotacoesUsuario(user: Usuarios): Promise<Anotacoes[]> {
-        return this.annotationRepository.pegaAnotacoesUsuario(user);
+    async getAllAnnotations(user: Usuarios): Promise<Anotacoes[]> {
+        return this.annotationRepository.getAllAnnotations(user);
     }
 
-    async criaAnotacao(
+    async createAnnotation(
         createAnnotationDto: CreateAnnotationDto,
         user: Usuarios
     ): Promise<Anotacoes> {
-        return this.annotationRepository.criaAnotacao(createAnnotationDto, user);
+        return this.annotationRepository.createAnnotation(createAnnotationDto, user);
     }
 
-    async buscaPorId(
+    async getById(
         id: number,
         user: Usuarios
     ): Promise<Anotacoes> {
@@ -38,15 +38,15 @@ export class AnnotationsService {
 
     }
 
-    async editaAnotacao(
+    async updateAnnotation(
         id: number,
         user: Usuarios,
         updateAnnotationDto: UpdateAnnotationDto
     ): Promise<Anotacoes> {
 
-        let anotacao = await this.buscaPorId(id, user);
+        let anotacao = await this.getById(id, user);
 
-        anotacao = this.converteUpdateDtoParaEntidade(updateAnnotationDto, anotacao);
+        anotacao = this.convertsUpdateDtoToEntity(updateAnnotationDto, anotacao);
 
         anotacao.save();
 
@@ -54,7 +54,7 @@ export class AnnotationsService {
 
     }
 
-    async deletaPorId(
+    async deleteById(
         id: number,
         user: Usuarios
     ): Promise<void> {
@@ -67,7 +67,7 @@ export class AnnotationsService {
 
     }
 
-    private converteUpdateDtoParaEntidade(updateAnnotationDto: UpdateAnnotationDto, anotacao: Anotacoes): Anotacoes {
+    private convertsUpdateDtoToEntity(updateAnnotationDto: UpdateAnnotationDto, anotacao: Anotacoes): Anotacoes {
 
         const { feature, subfeature, subsubfeature, polarity, exim, term } = updateAnnotationDto;
 

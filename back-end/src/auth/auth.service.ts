@@ -15,14 +15,14 @@ export class AuthService {
     ){}
     
 
-    async criaUsuario(usuarioDto: UsuarioDto): Promise<void>{
-        return this.usuariosRepository.criaUsuario(usuarioDto);
+    async createUser(usuarioDto: UsuarioDto): Promise<void>{
+        return this.usuariosRepository.createUser(usuarioDto);
     }
 
 
     async login(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string}>{
         
-        const usuario = await this.validaUsuario(authCredentialsDto);
+        const usuario = await this.validatesUser(authCredentialsDto);
         
         if(!usuario){
              throw new UnauthorizedException("Senha ou Usuario invalido");
@@ -36,7 +36,7 @@ export class AuthService {
      }
 
 
-    private async validaUsuario(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+    private async validatesUser(authCredentialsDto: AuthCredentialsDto): Promise<string> {
         
         const { usuario, senha } = authCredentialsDto;
         const user = await this.usuariosRepository.findOne({ usuario });

@@ -13,8 +13,8 @@ export class AuthController {
     ){}
 
     @Post('/novo')
-    criaUsuario (@Body(ValidationPipe) usuarioDto: UsuarioDto ): Promise<void>{
-        return this.authService.criaUsuario(usuarioDto);
+    createUser (@Body(ValidationPipe) usuarioDto: UsuarioDto ): Promise<void>{
+        return this.authService.createUser(usuarioDto);
     }
 
     @Post('/login')

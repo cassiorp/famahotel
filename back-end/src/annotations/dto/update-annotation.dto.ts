@@ -22,4 +22,6 @@ export class UpdateAnnotationDto {
     @IsNotEmpty()
     term: string;
     
+
+    
 }

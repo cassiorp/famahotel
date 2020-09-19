@@ -15,35 +15,35 @@ export class AnnotationsController {
     ) { }
 
     @Get()
-    pegaAnotacoesUsuario(@GetUser() user: Usuarios): Promise<Anotacoes[]>{
-        return this.annotationService.pegaAnotacoesUsuario(user);
+    getAllAnnotations(@GetUser() user: Usuarios): Promise<Anotacoes[]>{
+        return this.annotationService.getAllAnnotations(user);
     }
 
     @Get('/:id')
-    buscaPorId(
+    getById(
         @Param('id', ParseIntPipe) id: number,
         @GetUser() user: Usuarios
     ): Promise<Anotacoes>{
-        return this.annotationService.buscaPorId(id, user);
+        return this.annotationService.getById(id, user);
     }
 
     @Post()
     @UsePipes(ValidationPipe)
-    criaAnotacao(
+    createAnnotation(
         @Body() createAnnotation: CreateAnnotationDto,
         @GetUser() user: Usuarios
     ): Promise<Anotacoes> {
-        return this.annotationService.criaAnotacao(createAnnotation, user);
+        return this.annotationService.createAnnotation(createAnnotation, user);
     }
 
     @Put('/:id')
     @UsePipes(ValidationPipe)
-    editaAnotacao(
+    updateAnntation(
         @Param('id', ParseIntPipe) id: number,
         @GetUser() user: Usuarios,
         @Body() updateAnnotationDto: UpdateAnnotationDto
     ): Promise<Anotacoes> {
-        return this.annotationService.editaAnotacao(id, user, updateAnnotationDto);
+        return this.annotationService.updateAnnotation(id, user, updateAnnotationDto);
     }
 
     @Delete('/:id')
@@ -51,7 +51,7 @@ export class AnnotationsController {
         @Param('id', ParseIntPipe) id: number,
         @GetUser() user: Usuarios,
     ): Promise<void>{
-        return this.annotationService.deletaPorId(id, user);
+        return this.annotationService.deleteById(id, user);
     }
     
 }

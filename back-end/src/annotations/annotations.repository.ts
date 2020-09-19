@@ -9,7 +9,7 @@ import { CreateAnnotationDto } from "./dto/create-annotation.dto";
 @EntityRepository(Anotacoes)
 export class AnnotationsRepository extends Repository<Anotacoes> {
 
-    async pegaAnotacoesUsuario(user: Usuarios): Promise<Anotacoes[]> {
+    async getAllAnnotations(user: Usuarios): Promise<Anotacoes[]> {
 
         const query = this.createQueryBuilder('anotacoes');
         
@@ -19,12 +19,12 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
 
     }
 
-    async criaAnotacao(
+    async createAnnotation(
         createAnotacaoDto: CreateAnnotationDto,
         user: Usuarios
     ): Promise<Anotacoes> {
 
-        const anotacao = this.converteCreateDtoParaEntidade(createAnotacaoDto);
+        const anotacao = this.convertsCreateDtoToEntity(createAnotacaoDto);
         anotacao.usuario = user;
         await anotacao.save();
         delete anotacao.usuario;
@@ -32,8 +32,7 @@ export class AnnotationsRepository extends Repository<Anotacoes> {
 
     }
 
-
-    private converteCreateDtoParaEntidade(createAnnotationDto: CreateAnnotationDto): Anotacoes {
+    private convertsCreateDtoToEntity(createAnnotationDto: CreateAnnotationDto): Anotacoes {
         
         const { texto, feature, subfeature, subsubfeature, polarity, exim, term } = createAnnotationDto;
 
