@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
 import { AnnotationsModule } from './annotations/annotations.module';
+import { FeaturesModule } from './features/features.module';
+
+
 
 
 
@@ -11,6 +14,7 @@ import { AnnotationsModule } from './annotations/annotations.module';
     TypeOrmModule.forRoot(typeOrmConfig),
     AuthModule,
     AnnotationsModule,
+    FeaturesModule,
   ],
   controllers: [],
   providers: [],

@@ -8,5 +8,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     password: 'senha123',
     database: 'famahotel',
     autoLoadEntities: true,
-    synchronize: true
+    //synchronize: false
 }
