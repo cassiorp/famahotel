@@ -4,18 +4,21 @@ import { FeaturesService } from './features.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { FeatureRepository } from './features.repository';
-import { SubfeaturesController } from './subfeatures/subfeatures.controller';
 import { SubfeaturesService } from './subfeatures/subfeatures.service';
-import { SubFeatures } from './subfeatures/subfeature.entity';
 import { SubFeatureRepository } from './subfeatures/feature.repository';
+import { SubsubfeaturesService } from './subsubfeatures/subsubfeatures.service';
+import { SubSubFeatureRepository } from './subsubfeatures/subsubfeatures.repository';
+import { SubfeaturesController } from './subfeatures/subfeatures.controller';
+import { SubsubfeaturesController } from './subsubfeatures/subsubfeatures.controller';
+
 
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([FeatureRepository, SubFeatureRepository]),
+    TypeOrmModule.forFeature([FeatureRepository, SubFeatureRepository, SubSubFeatureRepository]),
     AuthModule
   ],
-  controllers: [FeaturesController, SubfeaturesController],
-  providers: [FeaturesService, SubfeaturesService]
+  controllers: [FeaturesController, SubfeaturesController, SubsubfeaturesController],
+  providers: [FeaturesService, SubfeaturesService, SubsubfeaturesService]
 })
 export class FeaturesModule {}

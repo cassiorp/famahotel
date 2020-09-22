@@ -13,4 +13,8 @@ export class SubfeaturesService {
     async getAllSubFeatures(): Promise<SubFeatures[]> {
         return await this.subfeatureRepository.find();
     }
+
+    async getSubFeatureByIdFeature(id: number): Promise<SubFeatures[]> {
+        return await this.subfeatureRepository.find({where: {id_feature: id} });
+    }
 }
