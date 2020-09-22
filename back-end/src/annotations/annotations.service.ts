@@ -15,7 +15,8 @@ export class AnnotationsService {
     ) { }
 
     async getAllAnnotations(user: Usuarios): Promise<Anotacoes[]> {
-        return this.annotationRepository.getAllAnnotations(user);
+        return this.annotationRepository.find({where: { id_usuario: user.id }});
+        //return this.annotationRepository.getAllAnnotations(user);
     }
 
     async createAnnotation(

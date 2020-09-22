@@ -10,6 +10,4 @@ export class Features extends BaseEntity {
     @Column()
     descricao: string;
 
-    // @OneToMany(type => SubFeatures, subfeature => subfeature.feature, { eager: true })
-    // subfeature: SubFeatures[];
 }

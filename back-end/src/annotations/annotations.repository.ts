@@ -8,16 +8,7 @@ import { CreateAnnotationDto } from "./dto/create-annotation.dto";
 @EntityRepository(Anotacoes)
 export class AnnotationsRepository extends Repository<Anotacoes> {
 
-    async getAllAnnotations(user: Usuarios): Promise<Anotacoes[]> {
-
-        const query = this.createQueryBuilder('anotacoes');
-        
-        query.where('anotacoes.id_usuario = :id_usuario', {id_usuario: user.id} );
-
-        return await query.getMany();
-
-    }
-
+    
     async createAnnotation(
         createAnotacaoDto: CreateAnnotationDto,
         user: Usuarios
