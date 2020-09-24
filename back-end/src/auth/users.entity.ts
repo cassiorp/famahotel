@@ -1,4 +1,4 @@
-import { Anotacoes } from "src/annotations/annotations.entity";
+import { Anotacoes } from "../annotations/annotations.entity";
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany } from "typeorm";
 
 @Entity()

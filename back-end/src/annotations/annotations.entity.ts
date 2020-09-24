@@ -1,5 +1,5 @@
 import { type } from "os";
-import { Usuarios } from "src/auth/users.entity";
+import { Usuarios } from "../auth/users.entity";
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { AnnotationPolarity } from "./annotation-polarity.enum";
 

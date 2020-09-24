@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Usuarios } from 'src/auth/users.entity';
-import { Anotacoes } from './annotations.entity';
-import { AnnotationsRepository } from './annotations.repository';
-import { CreateAnnotationDto } from './dto/create-annotation.dto';
-import { UpdateAnnotationDto } from './dto/update-annotation.dto';
+import { Usuarios } from '../../auth/users.entity';
+import { Anotacoes } from '../annotations.entity';
+import { AnnotationsRepository } from '../annotations.repository';
+import { CreateAnnotationDto } from '../dto/create-annotation.dto';
+import { UpdateAnnotationDto } from '../dto/update-annotation.dto';
 
 @Injectable()
 export class AnnotationsService {
@@ -16,7 +16,6 @@ export class AnnotationsService {
 
     async getAllAnnotations(user: Usuarios): Promise<Anotacoes[]> {
         return this.annotationRepository.find({where: { id_usuario: user.id }});
-        //return this.annotationRepository.getAllAnnotations(user);
     }
 
     async createAnnotation(
@@ -35,6 +34,7 @@ export class AnnotationsService {
         if (!found) {
             throw new NotFoundException(`Annotation with ID: ${id} not found`);
         }
+        
         return found;
 
     }

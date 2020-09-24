@@ -2,10 +2,10 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, U
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Usuarios } from 'src/auth/users.entity';
-import { Anotacoes } from './annotations.entity';
-import { AnnotationsService } from './annotations.service';
-import { CreateAnnotationDto } from './dto/create-annotation.dto';
-import { UpdateAnnotationDto } from './dto/update-annotation.dto';
+import { Anotacoes } from '../annotations.entity';
+import { AnnotationsService } from '../service/annotations.service';
+import { CreateAnnotationDto } from '../dto/create-annotation.dto';
+import { UpdateAnnotationDto } from '../dto/update-annotation.dto';
 
 @Controller('annotations')
 @UseGuards(AuthGuard())
