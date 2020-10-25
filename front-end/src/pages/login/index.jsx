@@ -9,10 +9,8 @@ import Alert from '../../components/alert/Alert';
 function Login() {
     const [username, setUsername] = useState(0);
     const [password, setPassword] = useState(0);
-    const [error, setError] = useState(0);
     const [cor, setCor] = useState(0);
     const [texto, setTexto] = useState("");
-
 
     const history = useHistory();
 
