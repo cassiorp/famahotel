@@ -1,4 +1,4 @@
-export const getToken = () => localStorage.getItem('token')
+export const getToken = () => sessionStorage.getItem('token')
 export const isAuthenticated = () => localStorage.getItem('token') !== null
 
 export const login = token => {
