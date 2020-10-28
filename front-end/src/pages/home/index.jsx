@@ -3,9 +3,10 @@ import { Container, Form, List } from './style';
 import Features from '../../components/features/Features';
 
 function Home(){
+
     const [texto, setTexto] = useState('');
     const [features, setFeatures] = useState([]);
-    const [ids, setIds] = useState(0);
+
 
     const showFile = (e) => {
         const reader = new FileReader()
@@ -17,20 +18,20 @@ function Home(){
     }
 
     const addLine = () => {
-        let id = ids;
-        id++;
-        setIds(id);
-        console.log(id);
-        setFeatures([ ...features, <Features id={id}/> ])
-        console.log(features)
+        const lines = Array.from(features);
+        lines.push({id: features.length});
+        setFeatures(lines);
     }
 
-    const removeLine = (id) => {
-       console.log(id)
+    const removeLine = (index) => {
+        const itensCopy = Array.from(features);
+        itensCopy.splice(index, 1);
+        setFeatures(itensCopy);
     }
 
     return (
            <Container>
+
                 <Form>
                    <h1>Ferramenta de Anotação Manual Automatizada</h1>
                     <div>
@@ -39,18 +40,19 @@ function Home(){
                     <input type="file" accept=".txt" onChange={showFile} />
                 </Form>
 
-                {/* {features} */}
                 
                 <List>
-                    { features.map((feature) =>
+                    { features.map(({id, value}, index) =>
                         <li>
-                            {feature}
-                            <button onClick={removeLine(feature.key)}>Excluir linha</button>
+                            <Features 
+                                key={id} 
+                                onDelete={removeLine} />                     
                         </li>
                     )}
                 </List>
-                
+               
                 <button onClick={addLine}> adicionar linha </button>
+                
            </Container>
         );
 }

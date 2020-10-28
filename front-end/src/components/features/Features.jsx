@@ -1,9 +1,9 @@
 import React from 'react';
 import {Div} from './style';
 
-function Features(props){
+const Features = (props) => {
     return(
-       <Div id={props.id}>
+       <Div >
            <select>
                 <option value="valor1" selected>Feature</option> 
                 <option value="valor2" >Valor 2</option>
@@ -30,7 +30,7 @@ function Features(props){
                 <option value="valor3">Valor 3</option>
             </select>
             <input />
-            {/* <button onClick={props.click}>Remover linha</button> */}
+            <button onClick={props.onDelete}>Remover linha</button>
        </Div>
             
     )
